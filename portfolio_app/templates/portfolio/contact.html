@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .contact-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.contact-tag{
+    color:#00D1FF;
+    font-weight:600;
+    letter-spacing:2px;
+}
+
+.contact-title{
+    color:white;
+    font-size:56px;
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+}
+
+.contact-subtitle{
+    color:#9CA3AF;
+    max-width:700px;
+    margin:auto;
+    line-height:1.8;
+}
+
+.contact-info-box,
+.contact-form-box{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:25px;
+    backdrop-filter:blur(10px);
+}
+
+.contact-info-box h3{
+    color:white;
+}
+
+.contact-info-item{
+    display:flex;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.contact-icon{
+    width:65px;
+    height:65px;
+    background:linear-gradient(135deg,#00D1FF,#7A5CFF);
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    margin-right:20px;
+}
+
+.contact-info-item h5{
+    color:white;
+    margin-bottom:5px;
+}
+
+.contact-info-item p{
+    color:#9CA3AF;
+    margin:0;
+}
+
+.contact-input{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    color:white;
+    padding:15px;
+    border-radius:14px;
+}
+
+.contact-input:focus{
+    background:rgba(255,255,255,0.08);
+    border-color:#00D1FF;
+    color:white;
+    box-shadow:none;
+}
+
+.contact-input::placeholder{
+    color:#9CA3AF;
+}
+
+.contact-btn{
+    background:linear-gradient(90deg,#00D1FF,#7A5CFF);
+    border:none;
+    padding:14px 35px;
+    color:white;
+    border-radius:14px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.contact-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,209,255,0.2);
+}
+</style>
+
+<section class="contact-section py-5">
+
+    <div class="container">
+
+        <!-- Heading -->
+
+        <div class="text-center mb-5">
+
+            <span class="contact-tag">
+                CONTACT US
+            </span>
+
+            <h1 class="contact-title mt-3">
+                Let’s Work Together
+            </h1>
+
+            <p class="contact-subtitle mt-4">
+                Have a project idea or business collaboration?
+                Feel free to contact Mr&Mrs Tech Solutions.
+            </p>
+
+        </div>
+
+        <div class="row g-5 align-items-center">
+
+            <!-- Left Side -->
+
+            <div class="col-lg-5">
+
+                <div class="contact-info-box">
+
+                    <h3 class="mb-4">
+                        Contact Information
+                    </h3>
+
+                    <div class="contact-info-item">
+
+                        <div class="contact-icon">
+                            📧
+                        </div>
+
+                        <div>
+                            <h5>Email</h5>
+                            <p>mrmrstechsolutions@gmail.com</p>
+                        </div>
+
+                    </div>
+
+                    <div class="contact-info-item">
+
+                        <div class="contact-icon">
+                            📞
+                        </div>
+
+                        <div>
+                            <h5>Phone</h5>
+                            <p>+91 7386894718</p>
+                        </div>
+
+                    </div>
+
+                    <div class="contact-info-item">
+
+                        <div class="contact-icon">
+                            📍
+                        </div>
+
+                        <div>
+                            <h5>Location</h5>
+                            <p>India</p>
+                        </div>
+
+                    </div>
+
+                    <div class="contact-info-item">
+
+                        <div class="contact-icon">
+                            🌐
+                        </div>
+
+                        <div>
+                            <h5>Website</h5>
+                            <p>www.mrmrstechsolutions.com</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Side -->
+
+            <div class="col-lg-7">
+
+                <div class="contact-form-box">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-4">
+
+                                <input type="text"
+                                       class="form-control contact-input"
+                                       placeholder="Your Name">
+
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+
+                                <input type="email"
+                                       class="form-control contact-input"
+                                       placeholder="Your Email">
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <input type="text"
+                                   class="form-control contact-input"
+                                   placeholder="Subject">
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <textarea rows="6"
+                                      class="form-control contact-input"
+                                      placeholder="Your Message"></textarea>
+
+                        </div>
+
+                        <button type="submit" class="contact-btn">
+                            Send Message
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
