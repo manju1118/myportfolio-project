@@ -14,4 +14,5 @@ urlpatterns = [
     ),
     path('portfolio/projects/', views.projects, name='projects'),
     path('portfolio/contact/', views.contact, name='contact'),
+    path('projects/blog-platform/', views.blog_project, name='blog_project'),
 ]
