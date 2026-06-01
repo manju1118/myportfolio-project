@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.login-section{
+    background:#111827;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
+
+.login-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:25px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+.login-tag{
+    color:#00D1FF;
+    font-weight:600;
+    letter-spacing:2px;
+}
+
+.login-title{
+    color:white;
+    font-size:48px;
+    font-weight:700;
+}
+
+.login-subtitle{
+    color:#9CA3AF;
+}
+
+.form-control{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    color:white;
+    padding:14px;
+}
+
+.form-control:focus{
+    background:rgba(255,255,255,0.05);
+    color:white;
+    border-color:#00D1FF;
+    box-shadow:none;
+}
+
+.form-label{
+    color:white;
+}
+
+.login-btn{
+    background:linear-gradient(90deg,#00D1FF,#7A5CFF);
+    border:none;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.register-link{
+    color:#00D1FF;
+    text-decoration:none;
+}
+
+.register-link:hover{
+    color:#7A5CFF;
+}
+
+</style>
+
+<section class="login-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-7 col-lg-5">
+
+                <div class="login-card p-5">
+
+                    <div class="text-center mb-4">
+
+                        <span class="login-tag">
+                            ACCOUNT ACCESS
+                        </span>
+
+                        <h1 class="login-title mt-3">
+                            Welcome Back
+                        </h1>
+
+                        <p class="login-subtitle mt-3">
+                            Login to continue your journey.
+                        </p>
+
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control"
+                                placeholder="Enter username"
+                            >
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Enter password"
+                            >
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn login-btn w-100">
+
+                            Login
+
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-4">
+
+                        <p class="text-secondary">
+
+                            Don't have an account?
+
+                            <a
+                                href="{% url 'register' %}"
+                                class="register-link">
+
+                                Register
+
+                            </a>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

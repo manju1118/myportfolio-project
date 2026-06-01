@@ -104,7 +104,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-
+            {% if request.user.is_authenticated %}
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'homepage' %}">Home</a>
@@ -125,6 +125,90 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
+                <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle text-white"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                    >
+
+                        <i class="bi bi-person-circle"></i>
+
+                        {{ request.user.username }}
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'profile' %}"
+                            >
+
+                                👤 Profile
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'dashboard' %}"
+                            >
+
+                                📊 Dashboard
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'settings' %}"
+                            >
+
+                                ⚙️ Settings
+
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+
+                            <a
+                                class="dropdown-item text-danger"
+                                href="{% url 'logout' %}"
+                            >
+
+                                🚪 Logout
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">SignUp</a>
+                </li>
+                {% endif %}
             </ul>
 
         </div>
