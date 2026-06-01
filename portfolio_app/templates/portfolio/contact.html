@@ -108,6 +108,20 @@
 
     <div class="container">
 
+        <!-- messages -->
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-success alert-dismissible fade show message-alert">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
         <!-- Heading -->
 
         <div class="text-center mb-5">
@@ -211,7 +225,8 @@
 
                                 <input type="text"
                                        class="form-control contact-input"
-                                       placeholder="Your Name">
+                                       placeholder="Your Name"
+                                       name="username">
 
                             </div>
 
@@ -219,7 +234,8 @@
 
                                 <input type="email"
                                        class="form-control contact-input"
-                                       placeholder="Your Email">
+                                       placeholder="Your Email"
+                                       name="email">
 
                             </div>
 
@@ -229,7 +245,8 @@
 
                             <input type="text"
                                    class="form-control contact-input"
-                                   placeholder="Subject">
+                                   placeholder="Subject"
+                                   name="subject">
 
                         </div>
 
@@ -237,7 +254,8 @@
 
                             <textarea rows="6"
                                       class="form-control contact-input"
-                                      placeholder="Your Message"></textarea>
+                                      placeholder="Your Message"
+                                      name="content"></textarea>
 
                         </div>
 
@@ -257,4 +275,28 @@
 
 </section>
 
+<script>
+
+setTimeout(function(){
+
+    let alerts =
+        document.querySelectorAll('.message-alert');
+
+    alerts.forEach(function(alert){
+
+        alert.style.transition = "opacity 0.5s";
+
+        alert.style.opacity = "0";
+
+        setTimeout(function(){
+
+            alert.remove();
+
+        }, 500);
+
+    });
+
+}, 2000);
+
+</script>
 {% endblock %}
