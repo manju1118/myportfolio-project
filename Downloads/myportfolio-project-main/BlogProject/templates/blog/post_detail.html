@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.post-detail-section{
+    background:#111827;
+    min-height:100vh;
+}
+
+.post-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.post-image{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+.post-category{
+    color:#00D1FF;
+    font-weight:600;
+    letter-spacing:2px;
+}
+
+.post-title{
+    color:white;
+    font-size:55px;
+    font-weight:700;
+}
+
+.post-meta{
+    color:#9CA3AF;
+}
+
+.post-content{
+    color:#E5E7EB;
+    font-size:18px;
+    line-height:2;
+}
+
+.back-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:12px;
+    text-decoration:none;
+}
+
+</style>
+
+<section class="post-detail-section py-5">
+
+    <div class="container">
+
+        <div class="post-container">
+
+            <a
+                href="{% url 'blog_homepage' %}"
+                class="back-btn"
+            >
+                ← Back To Blogs
+            </a>
+
+            <div class="mt-5">
+
+                <span class="post-category">
+
+                    {{ post.category.name }}
+
+                </span>
+
+                <h1 class="post-title mt-3">
+
+                    {{ post.title }}
+
+                </h1>
+
+                <div class="post-meta mt-3">
+
+                    👤 {{ post.author.username }}
+
+                    &nbsp;&nbsp;
+
+                    📅 {{ post.created_at|date:"F d, Y" }}
+
+                </div>
+
+            </div>
+
+            <div class="mt-5">
+
+                <img
+                    src="{{ post.image.url }}"
+                    class="post-image"
+                    alt="{{ post.title }}"
+                >
+
+            </div>
+
+            <div class="post-content mt-5">
+
+                {{ post.content }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
