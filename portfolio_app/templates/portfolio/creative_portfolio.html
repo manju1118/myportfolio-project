@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.project-detail-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.project-badge{
+    color:#00D1FF;
+    letter-spacing:2px;
+    font-weight:600;
+}
+
+.project-title{
+    font-size:60px;
+    color:white;
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+}
+
+.project-description{
+    color:#9CA3AF;
+    line-height:1.9;
+    font-size:18px;
+}
+
+.project-btn{
+    background:linear-gradient(90deg,#00D1FF,#7A5CFF);
+    color:white;
+    border:none;
+    padding:14px 30px;
+    border-radius:14px;
+}
+
+.project-btn-outline{
+    border:1px solid #00D1FF;
+    color:#00D1FF;
+    padding:14px 30px;
+    border-radius:14px;
+}
+
+.project-image{
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.feature-title{
+    color:white;
+    font-size:42px;
+    font-weight:700;
+}
+
+.feature-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:35px 25px;
+    transition:0.4s;
+    height:100%;
+}
+
+.feature-card:hover{
+    transform:translateY(-10px);
+    border-color:#00D1FF;
+}
+
+.feature-icon{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.feature-card h4{
+    color:white;
+    margin-bottom:15px;
+}
+
+.feature-card p{
+    color:#9CA3AF;
+    line-height:1.8;
+}
+
+.tech-stack span{
+    display:inline-block;
+    margin:10px;
+    padding:12px 24px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:30px;
+    color:white;
+}
+
+</style>
+
+<section class="project-detail-section py-5">
+
+<div class="container">
+
+    <!-- Hero Section -->
+
+    <div class="row align-items-center g-5">
+
+        <div class="col-lg-6">
+
+            <span class="project-badge">
+                Django Portfolio Platform
+            </span>
+
+            <h1 class="project-title mt-4">
+                Creative Portfolio Website
+            </h1>
+
+            <p class="project-description mt-4">
+
+                Modern personal portfolio website designed to
+                showcase projects, skills, achievements and
+                professional experience with an elegant user interface.
+
+                Built using Django, Bootstrap and modern UI principles.
+
+            </p>
+
+            <div class="mt-4">
+
+                <a href="https://portfolio.learnwithmanju.online"
+                   class="btn project-btn">
+
+                    Live Demo
+
+                </a>
+
+                <a href="https://github.com/your-github-link"
+                   class="btn project-btn-outline ms-3">
+
+                    GitHub Code
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <img src="{% static 'images/portfolio-project.png' %}"
+                 class="img-fluid rounded-4 project-image"
+                 alt="Portfolio Project">
+
+        </div>
+
+    </div>
+
+    <!-- Features -->
+
+    <div class="mt-5">
+
+        <div class="text-center mb-5">
+
+            <h2 class="feature-title">
+                Website Features
+            </h2>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍💻</div>
+                    <h4>About Me</h4>
+                    <p>Professional introduction with personal and career information.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h4>Projects Showcase</h4>
+                    <p>Display portfolio projects with descriptions and live demos.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h4>Skills Section</h4>
+                    <p>Highlight technical skills and technology stack visually.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📜</div>
+                    <h4>Certificates</h4>
+                    <p>Showcase certifications and achievements professionally.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📩</div>
+                    <h4>Contact Form</h4>
+                    <p>Allow visitors and recruiters to connect directly.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h4>Responsive Design</h4>
+                    <p>Optimized for desktop, tablet and mobile devices.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Technologies -->
+
+    <div class="mt-5">
+
+        <div class="text-center mb-4">
+
+            <h2 class="feature-title">
+                Technologies Used
+            </h2>
+
+        </div>
+
+        <div class="tech-stack text-center">
+
+            <span>Django</span>
+            <span>Bootstrap</span>
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JavaScript</span>
+            <span>SQLite</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}
