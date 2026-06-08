@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.create-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.create-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:25px;
+}
+
+.form-control,
+.form-select{
+
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    color:white;
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:rgba(255,255,255,0.05);
+    color:white;
+    border-color:#00D1FF;
+    box-shadow:none;
+}
+
+.title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.submit-btn{
+
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+}
+
+label{
+    color:white;
+    margin-bottom:10px;
+}
+
+</style>
+
+<section class="create-section py-5">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="create-card p-5">
+
+<h1 class="title text-center mb-5">
+
+Create New Blog
+
+</h1>
+
+<form
+method="POST"
+enctype="multipart/form-data"
+>
+
+{% csrf_token %}
+
+<label for="">Title</label>
+<input
+type="text"
+name="title"
+placeholder="Blog Title"
+class="form-control mb-3"
+>
+<label for="">Category</label>
+<select
+name="category"
+class="form-select mb-3"
+>
+
+{% for category in categories %}
+
+<option value="{{ category.id }}">
+
+    {{ category.name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+<label for="">Message</label>
+<textarea
+name="content"
+rows="8"
+class="form-control mb-3"
+placeholder="Write your blog..."
+></textarea>
+
+<input
+type="file"
+name="image"
+class="form-control mb-3"
+>
+
+<button
+type="submit"
+class="btn btn-primary"
+>
+
+Publish Blog
+
+</button>
+<a href="{% url 'blog_homepage' %}" class="btn btn-secondary ms-2">
+    Cancel
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -126,6 +126,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_homepage' %}">Blog</a>
+                </li>
                 <li class="nav-item dropdown">
 
                     <a
@@ -181,7 +184,18 @@
                             </a>
 
                         </li>
+                        <li>
 
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'blog_create' %}"
+                            >
+
+                                📝 Create Post
+
+                            </a>
+
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

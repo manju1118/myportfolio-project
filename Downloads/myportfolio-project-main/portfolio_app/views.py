@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from blogproject.models import Post
 from portfolio_app.models import Contact
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
@@ -145,7 +146,10 @@ def user_logout_page(request):
 
 @login_required
 def user_profile_page(request):
-    return render(request,'accounts/user_profile.html')
+    user_posts = Post.objects.filter(
+        author=request.user
+    ).order_by('-created_at')
+    return render(request,'accounts/user_profile.html', {'user_posts': user_posts})
 
 @login_required
 def user_dashboard_page(request):
