@@ -194,6 +194,32 @@ class="back-btn">
 
 </div>
 
+<!-- edit and delete -->
+
+<div class="mt-5">
+    
+    {% if user.is_authenticated and user == post.author %}
+
+    <a
+    href="{% url 'post_update' post.slug %}"
+    class="btn btn-outline-warning">
+
+    ✏️ Edit Post
+
+    </a>
+
+    <a
+href="{% url 'post_delete' post.slug %}"
+class="btn btn-outline-danger">
+
+    🗑️ Delete Post
+
+</a>
+
+    {% endif %}
+
+</div>
+
 <!-- Title -->
 
 <h1 class="post-title mt-3">
@@ -286,7 +312,30 @@ class="back-btn">
     {{ post.content|linebreaks }}
 
 </div>
-```
+
+<div class="mt-5">
+    <div class="mb-4">
+
+    <a
+    href="{% url 'like_post' post.slug %}"
+    class="btn btn-danger">
+
+        {% if liked %}
+
+            ❤️ Unlike
+
+        {% else %}
+
+            🤍 Like
+
+        {% endif %}
+
+        ({{ post.likes.count }})
+
+    </a>
+
+</div>
+</div>
 
 </div>
 

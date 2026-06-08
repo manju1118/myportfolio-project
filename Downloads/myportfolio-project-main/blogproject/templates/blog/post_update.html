@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.update-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.update-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:25px;
+    backdrop-filter:blur(10px);
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.form-label{
+    color:white;
+    font-weight:500;
+}
+
+.form-control,
+.form-select{
+
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    color:white;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:rgba(255,255,255,0.08);
+    color:white;
+    border-color:#00D1FF;
+    box-shadow:none;
+
+}
+
+.update-btn{
+
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+
+    border:none;
+    color:white;
+    padding:12px 25px;
+    border-radius:12px;
+
+}
+
+.current-image{
+    width:100%;
+    max-height:300px;
+    object-fit:cover;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:34px;
+        text-align:center;
+    }
+
+    .update-card{
+        padding:20px !important;
+    }
+
+}
+
+</style>
+
+<section class="update-section py-5">
+
+<div class="container">
+
+```
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="update-card p-5">
+
+            <h1 class="page-title text-center mb-5">
+
+                ✏️ Update Blog Post
+
+            </h1>
+
+            <form
+            method="POST"
+            enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {% if post.image %}
+
+                <img
+                src="{{ post.image.url }}"
+                class="current-image"
+                alt="{{ post.title }}">
+
+                {% endif %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Category
+
+                    </label>
+
+                    <select
+                    name="category"
+                    class="form-select">
+
+                        {% for category in categories %}
+
+                        <option
+                        value="{{ category.id }}"
+
+                        {% if post.category.id == category.id %}
+                        selected
+                        {% endif %}>
+
+                            {{ category.name }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Title
+
+                    </label>
+
+                    <input
+                    type="text"
+                    name="title"
+                    value="{{ post.title }}"
+                    class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Content
+
+                    </label>
+
+                    <textarea
+                    name="content"
+                    rows="10"
+                    class="form-control">{{ post.content }}</textarea>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Change Image
+
+                    </label>
+
+                    <input
+                    type="file"
+                    name="image"
+                    class="form-control">
+
+                </div>
+
+                <button
+                type="submit"
+                class="btn update-btn w-100">
+
+                    Update Post
+
+                </button>
+
+                <a href="{% url 'post_detail' post.slug %}">
+                    <button
+                    type="button"
+                    class="btn btn-outline-light w-100 mt-3">
+
+                        Cancel
+
+                    </button>
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+</section>
+
+{% endblock %}

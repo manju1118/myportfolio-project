@@ -237,7 +237,13 @@
 <!-- Latest Posts -->
 
 <div class="mb-5">
-
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <h2 class="section-title text-center mb-5">
 
         Latest Articles
@@ -296,6 +302,29 @@
                         Read More →
 
                     </a>
+                    <div class="mt-5">
+                        <div class="mb-4">
+
+                        <a
+                        href="{% url 'like_post' post.slug %}"
+                        class="btn btn-danger">
+
+                            {% if liked %}
+
+                                ❤️ Unlike
+
+                            {% else %}
+
+                                🤍 Like
+
+                            {% endif %}
+
+                            ({{ post.likes.count }})
+
+                        </a>
+
+                        </div>
+                    </div>
 
                 </div>
 

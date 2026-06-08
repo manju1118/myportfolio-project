@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.category-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.category-badge{
+    color:#00D1FF;
+    letter-spacing:2px;
+    font-weight:600;
+}
+
+.category-title{
+    color:white;
+    font-size:60px;
+    font-weight:700;
+}
+
+.category-text{
+    color:#9CA3AF;
+    font-size:18px;
+}
+
+.post-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:25px;
+    overflow:hidden;
+    transition:.4s;
+    height:100%;
+}
+
+.post-card:hover{
+    transform:translateY(-10px);
+    border-color:#00D1FF;
+}
+
+.post-image{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.post-content{
+    padding:25px;
+}
+
+.post-category{
+    color:#00D1FF;
+    font-weight:600;
+}
+
+.post-title{
+    color:white;
+    margin-top:15px;
+    margin-bottom:15px;
+    font-weight:700;
+}
+
+.post-text{
+    color:#9CA3AF;
+    line-height:1.8;
+}
+
+.read-btn{
+    color:#7A5CFF;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.read-btn:hover{
+    color:#00D1FF;
+}
+
+.back-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    color:white;
+    padding:12px 25px;
+    border-radius:12px;
+    text-decoration:none;
+}
+
+.back-btn:hover{
+    color:white;
+}
+
+@media(max-width:768px){
+
+    .category-title{
+        font-size:36px;
+        text-align:center;
+    }
+
+    .category-text{
+        font-size:15px;
+        text-align:center;
+    }
+
+    .post-title{
+        font-size:22px;
+    }
+
+    .post-image{
+        height:220px;
+    }
+
+}
+
+</style>
+
+<section class="category-section py-5">
+
+<div class="container">
+
+```
+<a
+href="{% url 'blog_homepage' %}"
+class="back-btn">
+
+    ← Back To Blog
+
+</a>
+
+<div class="text-center mt-5 mb-5">
+
+    <span class="category-badge">
+
+        Category
+
+    </span>
+
+    <h1 class="category-title mt-3">
+
+        {{ category.name }}
+
+    </h1>
+
+    <p class="category-text mt-3">
+
+        Explore all articles related to
+        {{ category.name }}
+
+    </p>
+
+</div>
+
+<div class="row g-4">
+
+    {% for post in posts %}
+
+    <div class="col-md-6 col-lg-4">
+
+        <div class="post-card">
+
+            {% if post.image %}
+
+            <img
+            src="{{ post.image.url }}"
+            class="post-image"
+            alt="{{ post.title }}">
+
+            {% else %}
+
+            <img
+            src="{% static 'images/default-blog.jpg' %}"
+            class="post-image"
+            alt="Blog Image">
+
+            {% endif %}
+
+            <div class="post-content">
+
+                <span class="post-category">
+
+                    {{ post.category.name }}
+
+                </span>
+
+                <h3 class="post-title">
+
+                    {{ post.title }}
+
+                </h3>
+
+                <p class="post-text">
+
+                    {{ post.content|truncatewords:25 }}
+
+                </p>
+
+                <a
+                href="{% url 'post_detail' post.slug %}"
+                class="read-btn">
+
+                    Read More →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12 text-center">
+
+        <h4 class="text-white">
+
+            No posts found in this category.
+
+        </h4>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</div>
+
+</section>
+
+{% endblock %}

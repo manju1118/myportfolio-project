@@ -73,9 +73,46 @@
     color:#9CA3AF;
     margin:0;
 }
-    </style>
+#topBtn{
+
+    display:none;
+
+    position:fixed;
+
+    bottom:20px;
+
+    right:20px;
+
+    z-index:999999;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+#topBtn{
+display:block !important;
+}
+</style>
 </head>
 <body>
+    <button id="topBtn">↑</button>
     
     <!-- navbar section -->
     {% load static %}
@@ -232,7 +269,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'projects' %}">Projects</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_homepage' %}">Blog</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
@@ -252,6 +291,9 @@
 
     {% block content %}
     {% endblock %}
+    <!-- Scroll To Top Button -->
+
+    
     <footer class="footer-section pt-5 pb-4">
 
     <div class="container">
@@ -287,7 +329,7 @@
                     <li><a href="{% url 'homepage' %}">Home</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'services' %}">Services</a></li>
-                    <li><a href="[% url 'projects' %]">Projects</a></li>
+                    <li><a href="{% url 'projects' %}">Projects</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
 
                 </ul>
@@ -346,6 +388,40 @@
 
     </div>
 
-</footer>
+    </footer>
+
+
+   <script>
+
+const topBtn =
+document.getElementById("topBtn");
+
+window.onscroll = function () {
+
+    if (
+        document.body.scrollTop > 100 ||
+        document.documentElement.scrollTop > 100
+    ) {
+
+        topBtn.style.display = "block";
+
+    } else {
+
+        topBtn.style.display = "none";
+
+    }
+
+};
+
+topBtn.onclick = function () {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+};
+
+</script>
 </body>
 </html>
