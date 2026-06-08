@@ -302,7 +302,7 @@
                         Read More →
 
                     </a>
-                    <div class="mt-5">
+                    <div class="mt-5 gap-3">
                         <div class="mb-4">
 
                         <a
@@ -324,6 +324,47 @@
                         </a>
 
                         </div>
+                        <div class="mb-4">
+                          <div class="mt-5">
+
+                            <h3 class="text-white">
+
+                                Comments
+
+                            </h3>
+
+                            {% if request.user.is_authenticated %}
+
+                            <form
+                            method="POST"
+                            action="{% url 'add_comment' post.slug %}">
+
+                                {% csrf_token %}
+
+                                <textarea
+                                name="content"
+                                rows="4"
+                                class="form-control mb-3"
+                                placeholder="Write a comment..."
+                                ></textarea>
+
+                                <button
+                                type="submit"
+                                class="btn btn-info">
+
+                                    Post Comment
+
+                                </button>
+
+                            </form>
+
+                            {% endif %}
+
+                          </div>
+                          
+                        </div>
+                        
+                        
                     </div>
 
                 </div>

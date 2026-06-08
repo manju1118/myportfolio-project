@@ -171,7 +171,7 @@
 
 <div class="container">
 
-```
+
 <!-- Back Button -->
 
 <a
@@ -318,7 +318,7 @@ class="btn btn-outline-danger">
 
     <a
     href="{% url 'like_post' post.slug %}"
-    class="btn btn-danger">
+    class="btn btn-outline-danger">
 
         {% if liked %}
 
@@ -334,7 +334,48 @@ class="btn btn-outline-danger">
 
     </a>
 
-</div>
+    </div>
+    <div class="mt-4">
+
+    {% for comment in comments %}
+
+    <div class="card bg-dark text-white mb-3">
+
+        <div class="card-body">
+
+            <h6>
+
+                <strong>@Admin</strong>: {{ comment.author.username }}
+
+            </h6>
+
+            <small>
+
+                {{ comment.created_at }}
+
+            </small>
+
+            <p class="mt-2">
+
+                {{ comment.content }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p class="text-secondary">
+
+        No comments yet.
+
+    </p>
+
+    {% endfor %}
+
+    </div>
 </div>
 
 </div>
