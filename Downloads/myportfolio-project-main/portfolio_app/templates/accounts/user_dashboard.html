@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.dashboard-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.dashboard-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.stat-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    transition:.4s;
+}
+
+.stat-card:hover{
+    transform:translateY(-8px);
+    border-color:#00D1FF;
+}
+
+.stat-number{
+    font-size:42px;
+    font-weight:700;
+    color:#00D1FF;
+}
+
+.stat-title{
+    color:white;
+}
+
+.recent-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+}
+
+.table{
+    color:white;
+}
+
+.action-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    color:white;
+    border:none;
+}
+
+@media(max-width:768px){
+
+    .dashboard-title{
+        font-size:34px;
+        text-align:center;
+    }
+
+}
+
+</style>
+
+<section class="dashboard-section py-5">
+
+<div class="container">
+
+
+<h1 class="dashboard-title mb-5">
+
+    📊 <span class="text-uppercase fs-3">{{ request.user.username }}'s Dashboard</span>
+
+</h1>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+
+        <div class="stat-card">
+
+            <div class="stat-number">
+
+                {{ total_posts }}
+
+            </div>
+
+            <div class="stat-title">
+
+                Blog Posts
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="stat-card">
+
+            <div class="stat-number">
+
+                {{ total_comments }}
+
+            </div>
+
+            <div class="stat-title">
+
+                Comments
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="stat-card">
+
+            <div class="stat-number">
+
+                {{ total_likes }}
+
+            </div>
+
+            <div class="stat-title">
+
+                Likes
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- User Activity Timeline -->
+     <div class="recent-card p-4 mt-5">
+
+    <h3 class="text-white mb-4">
+
+        ⏳ Activity Timeline
+
+    </h3>
+
+    {% for post in recent_posts %}
+
+    <div class="d-flex mb-4">
+
+        <div class="me-3">
+
+            🔵
+
+        </div>
+
+        <div>
+
+            <h6 class="text-white">
+
+                Created Post
+
+            </h6>
+
+            <p class="text-info">
+
+                {{ post.title }}
+
+            </p>
+
+            <small class="text-secondary">
+
+                {{ post.created_at }}
+            </small>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</div>
+<div class="row g-4">
+    <div class="recent-card p-4 mt-5">
+
+    <h3 class="text-white mb-4">
+        🔥 Most Liked Post
+    </h3>
+
+    {% if most_liked_post %}
+
+    <h4 class="text-info">
+
+        {{ most_liked_post.title }}
+
+    </h4>
+
+    <p class="text-secondary">
+
+        {{ most_liked_post.likes.count }}
+        Likes
+
+    </p>
+
+    <a
+    href="{% url 'post_detail' most_liked_post.slug %}"
+    class="btn btn-outline-info">
+
+        View Post
+
+    </a>
+
+    {% else %}
+
+    <p class="text-secondary">
+
+        No posts yet.
+
+    </p>
+
+    {% endif %}
+
+    </div>
+    <!-- latest comments -->
+     <div class="recent-card p-4 mt-5">
+
+    <h3 class="text-white mb-4">
+
+        💬 Latest Comments
+
+    </h3>
+
+    {% for comment in latest_comments %}
+
+    <div class="border-bottom pb-3 mb-3">
+
+        <h6 class="text-info">
+
+            {{ comment.author.username }}
+
+        </h6>
+
+        <p class="text-white">
+
+            {{ comment.content|truncatewords:15 }}
+
+        </p>
+
+        <small class="text-secondary">
+
+            {{ comment.created_at }}
+
+        </small>
+
+    </div>
+
+    {% empty %}
+
+    <p class="text-secondary">
+
+        No comments available.
+
+    </p>
+
+    {% endfor %}
+
+</div>
+</div>
+
+<!-- Quick Actions -->
+
+<div class="mt-5">
+
+    <a
+    href="{% url 'blog_create' %}"
+    class="btn action-btn">
+
+        ➕ Create Blog
+
+    </a>
+
+    <a
+    href="{% url 'profile' %}"
+    class="btn btn-outline-info ms-2">
+
+        👤 Profile
+
+    </a>
+
+</div>
+
+<!-- Recent Posts -->
+
+<div class="recent-card p-4 mt-5">
+
+    <h3 class="text-white mb-4">
+
+        Recent Posts
+
+    </h3>
+
+    <div class="table-responsive">
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for post in recent_posts %}
+
+                <tr>
+
+                    <td>
+
+                        {{ post.title }}
+
+                    </td>
+
+                    <td>
+
+                        {{ post.created_at|date:"d M Y" }}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                        href="{% url 'post_detail' post.slug %}"
+                        class="btn btn-sm btn-outline-info">
+
+                            View
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="3">
+
+                        No posts found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</section>
+
+<script>
+    setTimeout(function(){
+
+        let alerts =
+            document.querySelectorAll('.message-alert');
+
+        alerts.forEach(function(alert){
+
+            alert.style.transition = "opacity 0.5s";
+
+            alert.style.opacity = "0";
+
+            setTimeout(function(){
+
+                alert.remove();
+
+            }, 500);
+
+        });
+
+    }, 2000);
+</script>
+
+{% endblock %}

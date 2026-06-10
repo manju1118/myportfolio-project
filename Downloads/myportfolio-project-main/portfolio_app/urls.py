@@ -28,4 +28,5 @@ urlpatterns = [
     path('accounts/user_dashboard/',views.user_dashboard_page,name='dashboard'),
     path('accounts/user_settings/', views.user_settings_page,name='settings'),
     path('accounts/user_logout/',views.user_logout_page,name='logout'),
+    path('accounts/user_password_change/',views.user_password_change_page,name='password_change'),   
 ]
