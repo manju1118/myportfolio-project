@@ -387,69 +387,69 @@ box-shadow:0 10px 30px rgba(0,209,255,0.2);
 
 </section>
 
-<script>
+    <script>
 
-setTimeout(function(){
+    setTimeout(function(){
 
-    let alerts =
-        document.querySelectorAll('.message-alert');
+        let alerts =
+            document.querySelectorAll('.message-alert');
 
-    alerts.forEach(function(alert){
+        alerts.forEach(function(alert){
 
-        alert.style.transition = "opacity 0.5s";
+            alert.style.transition = "opacity 0.5s";
 
-        alert.style.opacity = "0";
+            alert.style.opacity = "0";
 
-        setTimeout(function(){
+            setTimeout(function(){
 
-            alert.remove();
+                alert.remove();
 
-        }, 500);
+            }, 500);
+
+        });
+
+    }, 2000);
+    /* Scroll Reveal Animation */
+
+    const observer =
+    new IntersectionObserver(
+
+    (entries)=>{
+
+
+    entries.forEach((entry)=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add(
+                'show'
+            );
+
+        }
 
     });
 
-}, 2000);
-/* Scroll Reveal Animation */
 
-const observer =
-new IntersectionObserver(
+    },
 
-(entries)=>{
-
-
-entries.forEach((entry)=>{
-
-    if(entry.isIntersecting){
-
-        entry.target.classList.add(
-            'show'
-        );
-
+    {
+    threshold:0.15
     }
 
-});
+    );
+
+    document
+    .querySelectorAll('.fade-up')
+    .forEach((el)=>{
 
 
-},
-
-{
-threshold:0.15
-}
-
-);
-
-document
-.querySelectorAll('.fade-up')
-.forEach((el)=>{
+    observer.observe(el);
 
 
-observer.observe(el);
+    });
 
 
-});
-
-
-</script>
+    </script>
 
 {% endblock %}
 

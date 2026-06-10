@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.todo-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.todo-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:25px;
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.form-control,
+.form-select{
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    color:white;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:rgba(255,255,255,.08);
+    color:white;
+    border-color:#00D1FF;
+    box-shadow:none;
+
+}
+
+.update-btn{
+
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+
+    border:none;
+    color:white;
+
+}
+
+</style>
+
+<section class="todo-section py-5">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="todo-card p-5">
+
+<h1 class="page-title text-center mb-5">
+
+✏️ Update Task
+
+</h1>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<input
+type="text"
+name="title"
+value="{{ todo.title }}"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<textarea
+name="description"
+rows="5"
+class="form-control">{{ todo.description }}</textarea>
+
+</div>
+
+<div class="mb-3">
+
+<select
+name="priority"
+class="form-select">
+
+<option
+value="High"
+{% if todo.priority == 'High' %}
+selected
+{% endif %}
+>
+
+High Priority
+
+</option>
+
+<option
+value="Medium"
+{% if todo.priority == 'Medium' %}
+selected
+{% endif %}
+>
+
+Medium Priority
+
+</option>
+
+<option
+value="Low"
+{% if todo.priority == 'Low' %}
+selected
+{% endif %}
+>
+
+Low Priority
+
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-4">
+
+<input
+type="date"
+name="due_date"
+value="{{ todo.due_date|date:'Y-m-d' }}"
+class="form-control">
+
+</div>
+
+<button
+type="submit"
+class="btn update-btn w-100">
+
+Update Task
+
+</button><br><br>
+<a href="{% url 'todo_homepage' %}" class="btn btn-outline-light w-100">Cancel</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

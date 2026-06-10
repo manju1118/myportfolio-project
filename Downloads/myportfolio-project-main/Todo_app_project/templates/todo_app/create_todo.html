@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.todo-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.todo-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:25px;
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.form-control,
+.form-select{
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    color:white;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:rgba(255,255,255,.08);
+    color:white;
+    border-color:#00D1FF;
+    box-shadow:none;
+
+}
+
+.create-btn{
+
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+
+    border:none;
+    color:white;
+
+}
+
+</style>
+
+<section class="todo-section py-5">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="todo-card p-5">
+
+<h1 class="page-title text-center mb-5">
+
+➕ Create Task
+
+</h1>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<label for="" class="text-white">Task Title</label> <br><br>
+<div class="mb-3">
+
+<input
+type="text"
+name="title"
+class="form-control"
+placeholder="Task Title"
+required>
+
+</div>
+
+<label for="" class="text-white">Task Description</label><br><br>
+<div class="mb-3">
+<textarea
+name="description"
+rows="5"
+class="form-control"
+placeholder="Task Description"></textarea>
+
+</div>
+<label for="" class="text-white">Task Priority</label><br><br>
+<div class="mb-3">
+    <select
+name="priority"
+class="form-select"
+required>
+
+    <option value="High">
+        High Priority
+    </option>
+
+    <option value="Medium" selected>
+        Medium Priority
+    </option>
+
+    <option value="Low">
+        Low Priority
+    </option>
+
+    </select>
+</div>
+<label for="" class="text-white">Task Category</label><br><br>
+<div class="mb-3">
+
+<select
+name="category"
+class="form-select">
+
+{% for category in categories %}
+
+<option
+value="{{ category.id }}">
+
+{{ category.name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+
+<label for="" class="text-white">Task Date</label><br><br>
+<div class="mb-4">
+
+<input
+type="date"
+name="due_date"
+class="form-control">
+
+</div>
+
+<button
+type="submit"
+class="btn create-btn w-100">
+
+Create Task
+
+</button><br><br>
+<a href="{% url 'todo_homepage' %}" class="btn btn-outline-light w-100">
+    Cancel
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

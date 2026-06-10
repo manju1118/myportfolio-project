@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.dashboard-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.stat-card{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+}
+
+.stat-number{
+
+    font-size:45px;
+
+    font-weight:700;
+
+    color:#00D1FF;
+
+}
+
+.stat-title{
+
+    color:white;
+
+}
+
+</style>
+
+<section class="dashboard-section py-5">
+
+<div class="container">
+
+<h1 class="text-white mb-5">
+
+📊 Todo Dashboard
+
+</h1>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="stat-card">
+
+<div class="stat-number">
+
+{{ total_tasks }}
+
+</div>
+
+<div class="stat-title">
+
+Total Tasks
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-card">
+
+<div class="stat-number">
+
+{{ completed_tasks }}
+
+</div>
+
+<div class="stat-title">
+
+Completed
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-card">
+
+<div class="stat-number">
+
+{{ pending_tasks }}
+
+</div>
+
+<div class="stat-title">
+
+Pending
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-card">
+
+<div class="stat-number">
+
+{{ high_priority }}
+
+</div>
+
+<div class="stat-title">
+
+High Priority
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.todo-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.todo-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    transition:.4s;
+    height:100%;
+}
+
+.todo-card:hover{
+    transform:translateY(-8px);
+    border-color:#00D1FF;
+}
+
+.todo-title{
+    color:white;
+    font-size:22px;
+    font-weight:600;
+}
+
+.todo-desc{
+    color:#9CA3AF;
+}
+
+.completed-badge{
+    background:#198754;
+    color:white;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.pending-badge{
+    background:#ffc107;
+    color:black;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.create-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    border:none;
+    color:white;
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:34px;
+        text-align:center;
+    }
+
+}
+/* Responsive Design */
+
+@media(max-width:992px){
+
+    .page-title{
+        font-size:42px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .todo-section{
+        padding-top:20px;
+    }
+
+    .page-title{
+        font-size:30px;
+        text-align:center;
+        margin-bottom:15px;
+    }
+
+    .todo-card{
+        padding:20px !important;
+    }
+
+    .todo-title{
+        font-size:20px;
+    }
+
+    .todo-desc{
+        font-size:14px;
+        line-height:1.7;
+    }
+
+    .create-btn{
+        width:100%;
+    }
+
+    .badge{
+        font-size:12px;
+    }
+
+    .btn-sm{
+        font-size:12px;
+        padding:8px 12px;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-5{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .input-group{
+        width:100%;
+    }
+
+    .input-group input{
+        font-size:14px;
+    }
+
+    .input-group button{
+        font-size:14px;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .page-title{
+        font-size:26px;
+    }
+
+    .todo-card{
+        border-radius:15px;
+    }
+
+    .todo-title{
+        font-size:18px;
+    }
+
+    .todo-desc{
+        font-size:13px;
+    }
+
+    .btn-sm{
+        width:100%;
+    }
+
+    .mt-4.d-flex.gap-2{
+        flex-direction:column;
+    }
+
+    .create-btn{
+        font-size:14px;
+    }
+
+}
+
+</style>
+
+<section class="todo-section py-5">
+
+<div class="container">
+
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-5">
+
+    <h1 class="page-title">
+
+        ✅ My Todo List
+
+    </h1>
+    
+        <center>
+            <form method="GET" class="w-100 w-md-auto">
+
+                <div class="input-group">
+
+                    <input
+                    type="text"
+                    name="query"
+                    value="{{ request.GET.query }}"
+                    class="form-control"
+                    placeholder="Search Tasks...">
+
+                    <button
+                    class="btn btn-info">
+
+                        🔍
+
+                    </button>
+
+                </div>
+
+            </form>
+        </center>
+   
+
+    <a
+    href="{% url 'create_todo' %}"
+    class="btn create-btn">
+
+        ➕ Add Task
+
+    </a>
+
+</div>
+
+<div class="row g-4">
+
+    
+
+
+    {% for todo in todos %}
+
+    <div class="col-md-6 col-lg-4">
+        
+
+        <div class="todo-card p-4">
+            <div class="gap-3">
+            <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-outline-warning">
+            Update Task
+            </a>
+            
+        </div>
+            <br><br>
+            <div class="d-flex justify-content-between">
+
+                {% if todo.priority == 'High' %}
+
+                <span class="badge bg-danger">
+
+                    🔥 High
+
+                </span>
+
+                {% elif todo.priority == 'Medium' %}
+
+                <span class="badge bg-warning text-dark">
+
+                    ⚡ Medium
+
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-success">
+
+                    ✅ Low
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+            <h3 class="todo-title mt-3">
+
+                {{ todo.title }}
+
+            </h3>
+
+            <p class="todo-desc">
+
+                {{ todo.description }}
+
+            </p>
+
+            <small class="text-secondary">
+
+                {{ todo.created_at|date:"d M Y" }}
+
+            </small>
+
+            <div class="mt-4 d-flex gap-2">
+
+                {% if not todo.is_completed %}
+
+                <a
+                href="{% url 'complete_todo' todo.id %}"
+                class="btn btn-success btn-sm">
+
+                    ✔ Complete
+
+                </a>
+
+                {% endif %}
+
+                <a
+                href="{% url 'delete_todo' todo.id %}"
+                class="btn btn-danger btn-sm">
+
+                    🗑 Delete
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12">
+
+        <div class="alert alert-dark text-center">
+
+            No Tasks Available
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+</div>
+
+</section>
+
+{% endblock %}
