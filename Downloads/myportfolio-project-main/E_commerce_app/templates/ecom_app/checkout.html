@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.checkout-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.checkout-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+}
+
+.form-control{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    color:white;
+}
+
+.form-control:focus{
+    background:rgba(255,255,255,.08);
+    color:white;
+    border-color:#00D1FF;
+    box-shadow:none;
+}
+
+.summary-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+}
+
+.checkout-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    border:none;
+    color:white;
+}
+
+.product-row{
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding-bottom:10px;
+    margin-bottom:10px;
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:32px;
+        text-align:center;
+    }
+
+}
+
+</style>
+
+<section class="checkout-section py-5">
+
+<div class="container">
+
+<h1 class="page-title mb-5">
+
+💳 Checkout
+
+</h1>
+
+<div class="row g-4">
+
+<!-- Checkout Form -->
+
+<div class="col-lg-8">
+
+<div class="checkout-card p-4">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label class="text-white mb-2">
+
+Full Name
+
+</label>
+
+<input
+type="text"
+name="full_name"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="text-white mb-2">
+
+Phone Number
+
+</label>
+
+<input
+type="text"
+name="phone"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="text-white mb-2">
+
+Address
+
+</label>
+
+<textarea
+name="address"
+rows="5"
+class="form-control"
+required></textarea>
+
+</div>
+
+<button
+type="submit"
+class="btn checkout-btn w-100">
+
+🚀 Place Order
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- Order Summary -->
+
+<div class="col-lg-4">
+
+<div class="summary-card p-4">
+
+<h3 class="text-white mb-4">
+
+📦 Order Summary
+
+</h3>
+
+{% for item in cart_items %}
+
+<div class="product-row">
+
+<p class="text-white mb-1">
+
+{{ item.product.title }}
+
+</p>
+
+<small class="text-secondary">
+
+Qty:
+{{ item.quantity }}
+
+</small>
+
+<p class="text-info mb-0">
+
+₹{{ item.product.price }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+<hr>
+
+<div class="d-flex justify-content-between">
+
+<h4 class="text-white">
+
+Total
+
+</h4>
+
+<h4 class="text-info">
+
+₹{{ total_price }}
+
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

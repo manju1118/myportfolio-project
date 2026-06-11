@@ -186,7 +186,7 @@ class="product-image">
 <div class="mt-4">
 
 <a
-href="#"
+href="{% url 'add_to_cart' product.slug %}"
 class="btn cart-btn">
 
 🛒 Add To Cart
@@ -198,6 +198,14 @@ href="#"
 class="btn buy-btn ms-lg-3">
 
 ⚡ Buy Now
+
+</a>
+
+<a
+href="{% url 'add_to_wishlist' product.slug %}"
+class="btn btn-outline-danger">
+
+❤️ Wishlist
 
 </a>
 

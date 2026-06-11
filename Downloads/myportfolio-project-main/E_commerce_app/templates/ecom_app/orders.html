@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.orders-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.order-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    transition:.4s;
+}
+
+.order-card:hover{
+    border-color:#00D1FF;
+    transform:translateY(-5px);
+}
+
+.order-id{
+    color:#00D1FF;
+    font-weight:700;
+}
+
+.order-price{
+    color:#00D1FF;
+    font-size:22px;
+    font-weight:700;
+}
+
+.status-pending{
+    background:#ffc107;
+    color:black;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.status-processing{
+    background:#0dcaf0;
+    color:white;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.status-shipped{
+    background:#6f42c1;
+    color:white;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.status-delivered{
+    background:#198754;
+    color:white;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:32px;
+        text-align:center;
+    }
+
+}
+
+</style>
+
+<section class="orders-section py-5">
+
+<div class="container">
+
+<h1 class="page-title mb-5">
+
+📦 My Orders
+
+</h1>
+
+<div class="row g-4">
+
+{% for order in orders %}
+
+<div class="col-lg-6">
+
+<div class="order-card p-4">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h5 class="order-id">
+
+Order #{{ order.id }}
+
+</h5>
+
+{% if order.status == 'Pending' %}
+
+<span class="status-pending">
+
+⏳ Pending
+
+</span>
+
+{% elif order.status == 'Processing' %}
+
+<span class="status-processing">
+
+⚙️ Processing
+
+</span>
+
+{% elif order.status == 'Shipped' %}
+
+<span class="status-shipped">
+
+🚚 Shipped
+
+</span>
+
+{% elif order.status == 'Delivered' %}
+
+<span class="status-delivered">
+
+✅ Delivered
+
+</span>
+
+{% endif %}
+
+</div>
+
+<p class="text-white">
+
+👤 {{ order.full_name }}
+
+</p>
+
+<p class="text-secondary">
+
+📞 {{ order.phone }}
+
+</p>
+
+<p class="text-secondary">
+
+📍 {{ order.address }}
+
+</p>
+
+<p class="order-price">
+
+₹{{ order.total_price }}
+
+</p>
+
+<small class="text-secondary">
+
+📅 {{ order.created_at|date:"d M Y h:i A" }}
+
+</small>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+<div class="alert alert-dark text-center">
+
+No Orders Found
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

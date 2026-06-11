@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.cart-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.page-title{
+    color:white;
+    font-size:50px;
+    font-weight:700;
+}
+
+.cart-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.4s;
+}
+
+.cart-card:hover{
+    border-color:#00D1FF;
+}
+
+.product-image{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.product-title{
+    color:white;
+    font-size:22px;
+    font-weight:600;
+}
+
+.product-price{
+    color:#00D1FF;
+    font-size:20px;
+    font-weight:700;
+}
+
+.summary-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+}
+
+.checkout-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    border:none;
+    color:white;
+}
+
+.remove-btn{
+    background:#dc3545;
+    border:none;
+    color:white;
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:32px;
+        text-align:center;
+    }
+
+    .cart-item{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .product-image{
+        width:100%;
+        height:220px;
+    }
+
+}
+
+</style>
+
+<section class="cart-section py-5">
+
+<div class="container">
+
+<h1 class="page-title mb-5">
+
+🛒 My Cart
+
+</h1>
+
+<div class="row g-4">
+
+<div class="col-lg-8">
+
+{% for item in cart_items %}
+
+<div class="cart-card p-4 mb-4">
+
+<div class="d-flex cart-item gap-4">
+
+{% if item.product.image %}
+
+<img
+src="{{ item.product.image.url }}"
+class="product-image">
+
+{% endif %}
+
+<div class="flex-grow-1">
+
+<h3 class="product-title">
+
+{{ item.product.title }}
+
+</h3>
+
+<p class="text-secondary">
+
+{{ item.product.description|truncatewords:20 }}
+
+</p>
+
+<p class="product-price">
+
+₹{{ item.product.price }}
+
+</p>
+
+<p class="text-info">
+
+Quantity:
+{{ item.quantity }}
+
+</p>
+
+<a
+href="{% url 'remove_cart_item' item.id %}"
+class="btn remove-btn btn-sm">
+
+🗑 Remove
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-dark text-center">
+
+Your Cart Is Empty
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="summary-card p-4 sticky-top">
+
+<h3 class="text-white mb-4">
+
+Order Summary
+
+</h3>
+
+<div class="d-flex justify-content-between">
+
+<p class="text-secondary">
+
+Items
+
+</p>
+
+<p class="text-white">
+
+{{ cart_items.count }}
+
+</p>
+
+</div>
+
+<hr>
+
+<div class="d-flex justify-content-between">
+
+<h4 class="text-white">
+
+Total
+
+</h4>
+
+<h4 class="text-info">
+
+₹{{ total_price }}
+
+</h4>
+
+</div>
+
+<a
+href="{% url 'checkout' %}"
+class="btn checkout-btn w-100 mt-4">
+
+💳 Proceed To Checkout
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

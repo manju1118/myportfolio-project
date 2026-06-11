@@ -204,6 +204,67 @@ class="img-fluid rounded-4">
 
 </section>
 
+<div class="container">
+    <div class="row g-4">
+    
+<form method="GET">
+
+<div class="row g-3">
+
+<div class="col-md-8">
+
+<input
+type="text"
+name="query"
+value="{{ query }}"
+class="form-control"
+placeholder="Search Products...">
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="sort"
+class="form-select">
+
+    <option value="">
+        Sort Products
+    </option>
+
+    <option value="low">
+        Price Low → High
+    </option>
+
+    <option value="high">
+        Price High → Low
+    </option>
+    <option value="latest">
+        Latest
+    </option>
+
+</select>
+
+</div>
+
+<div class="col-md-1">
+
+<button
+class="btn btn-info w-100">
+
+🔍
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+    
+    </div>
+</div>
+
 <!-- Categories -->
 
 <section class="py-5">
@@ -296,7 +357,7 @@ Best selling products
 
 <div class="row g-4">
 
-{% for product in featured_products %}
+{% for product in products %}
 
 <div class="col-md-6 col-lg-3">
 
@@ -340,13 +401,13 @@ View Product
 
 {% empty %}
 
-<div class="col-12 text-center">
+<div class="col-12">
 
-<h4 class="text-white">
+    <div class="alert alert-dark text-center">
 
-No Products Available
+        No Products Found
 
-</h4>
+    </div>
 
 </div>
 
