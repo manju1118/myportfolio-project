@@ -166,6 +166,20 @@
 </style>
 
 <section class="register-section">
+    <!-- messages -->
+     {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-success alert-dismissible fade show message-alert">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+    {% endif %}
 
     <div class="container">
 

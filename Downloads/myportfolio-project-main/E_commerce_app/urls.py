@@ -44,4 +44,14 @@ urlpatterns = [
     views.wishlist_page,
     name='wishlist_page'
     ),
+    path(
+    'review/<slug:slug>/',
+    views.add_review,
+    name='add_review'
+    ),
+    path(
+    'payment-success/',
+    views.payment_success,
+    name='payment_success'
+    ),
 ]

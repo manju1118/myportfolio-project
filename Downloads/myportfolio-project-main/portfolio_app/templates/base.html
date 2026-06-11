@@ -52,16 +52,38 @@
     color:#00D1FF;
 }
 
+.footer-socials{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
 .footer-socials a{
-    display:block;
-    margin-bottom:15px;
+
     color:#9CA3AF;
+
     text-decoration:none;
-    transition:0.3s;
+
+    padding:10px 16px;
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:10px;
+
+    transition:.3s;
+
 }
 
 .footer-socials a:hover{
+
     color:#00D1FF;
+
+    border-color:#00D1FF;
+
 }
 
 .footer-line{
@@ -109,7 +131,64 @@
 #topBtn{
 display:block !important;
 }
-</style>
+@media(max-width:768px){
+
+    .footer-section{
+
+        text-align:center;
+
+    }
+
+    .footer-logo{
+
+        font-size:28px;
+
+    }
+
+    .footer-heading{
+
+        margin-top:15px;
+
+    }
+
+    .footer-links{
+
+        padding-left:0;
+
+        list-style:none;
+
+    }
+
+    .footer-socials{
+
+        justify-content:center;
+
+        margin-top:15px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .footer-socials{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .footer-socials a{
+
+        width:220px;
+
+        text-align:center;
+
+    }
+
+}
+    </style>
 </head>
 <body>
     <button id="topBtn">↑</button>
@@ -319,7 +398,7 @@ display:block !important;
     <!-- Scroll To Top Button -->
 
     
-    <footer class="footer-section pt-5 pb-4">
+    <footer class="footer-section pt-5  pb-4">
 
     <div class="container">
 
@@ -447,6 +526,6 @@ topBtn.onclick = function () {
 
 };
 
-</script>
+    </script>
 </body>
 </html>

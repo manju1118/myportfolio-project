@@ -78,6 +78,69 @@
 </style>
 
 <section class="orders-section py-5">
+    <script>
+
+    setTimeout(function(){
+
+        let alerts =
+            document.querySelectorAll('.message-alert');
+
+        alerts.forEach(function(alert){
+
+            alert.style.transition = "opacity 0.5s";
+
+            alert.style.opacity = "0";
+
+            setTimeout(function(){
+
+                alert.remove();
+
+            }, 500);
+
+        });
+
+    }, 2000);
+    /* Scroll Reveal Animation */
+
+    const observer =
+    new IntersectionObserver(
+
+    (entries)=>{
+
+
+    entries.forEach((entry)=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add(
+                'show'
+            );
+
+        }
+
+    });
+
+
+    },
+
+    {
+    threshold:0.15
+    }
+
+    );
+
+    document
+    .querySelectorAll('.fade-up')
+    .forEach((el)=>{
+
+
+    observer.observe(el);
+
+
+    });
+
+
+    </script>
 
 <div class="container">
 
@@ -193,4 +256,67 @@ No Orders Found
 
 </section>
 
+<script>
+
+    setTimeout(function(){
+
+        let alerts =
+            document.querySelectorAll('.message-alert');
+
+        alerts.forEach(function(alert){
+
+            alert.style.transition = "opacity 0.5s";
+
+            alert.style.opacity = "0";
+
+            setTimeout(function(){
+
+                alert.remove();
+
+            }, 500);
+
+        });
+
+    }, 2000);
+    /* Scroll Reveal Animation */
+
+    const observer =
+    new IntersectionObserver(
+
+    (entries)=>{
+
+
+    entries.forEach((entry)=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add(
+                'show'
+            );
+
+        }
+
+    });
+
+
+    },
+
+    {
+    threshold:0.15
+    }
+
+    );
+
+    document
+    .querySelectorAll('.fade-up')
+    .forEach((el)=>{
+
+
+    observer.observe(el);
+
+
+    });
+
+
+    </script>
 {% endblock %}

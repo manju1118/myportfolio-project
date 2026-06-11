@@ -68,6 +68,20 @@
 </style>
 
 <section class="checkout-section py-5">
+    <!-- messages -->
+     {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="alert alert-success alert-dismissible fade show message-alert">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+    {% endif %}
 
 <div class="container">
 
@@ -87,63 +101,83 @@
 
 <form method="POST">
 
-{% csrf_token %}
+    {% csrf_token %}
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="text-white mb-2">
+        <label class="text-white mb-2">
+            Full Name
+        </label>
 
-Full Name
+        <input
+        type="text"
+        name="full_name"
+        class="form-control"
+        required>
 
-</label>
+    </div>
 
-<input
-type="text"
-name="full_name"
-class="form-control"
-required>
+    <div class="mb-3">
 
-</div>
+        <label class="text-white mb-2">
+            Phone Number
+        </label>
 
-<div class="mb-3">
+        <input
+        type="text"
+        name="phone"
+        class="form-control"
+        required>
 
-<label class="text-white mb-2">
+    </div>
 
-Phone Number
+    <div class="mb-3">
 
-</label>
+        <label class="text-white mb-2">
+            Delivery Address
+        </label>
 
-<input
-type="text"
-name="phone"
-class="form-control"
-required>
+        <textarea
+        name="address"
+        rows="5"
+        class="form-control"
+        required></textarea>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="text-white mb-2">
+        <label class="text-white mb-2">
+            Payment Method
+        </label>
 
-Address
+        <select
+        name="payment_method"
+        class="form-control">
 
-</label>
+            <option>
+                Cash On Delivery
+            </option>
 
-<textarea
-name="address"
-rows="5"
-class="form-control"
-required></textarea>
+            <option>
+                UPI (Demo)
+            </option>
 
-</div>
+            <option>
+                Credit Card (Demo)
+            </option>
 
-<button
-type="submit"
-class="btn checkout-btn w-100">
+        </select>
 
-🚀 Place Order
+    </div>
 
-</button>
+    <button
+    type="submit"
+    class="btn checkout-btn w-100">
+
+        🚀 Place Order - ₹{{ total_price }}
+
+    </button>
 
 </form>
 
@@ -217,5 +251,69 @@ Total
 </div>
 
 </section>
+
+<script>
+
+    setTimeout(function(){
+
+        let alerts =
+            document.querySelectorAll('.message-alert');
+
+        alerts.forEach(function(alert){
+
+            alert.style.transition = "opacity 0.5s";
+
+            alert.style.opacity = "0";
+
+            setTimeout(function(){
+
+                alert.remove();
+
+            }, 500);
+
+        });
+
+    }, 2000);
+    /* Scroll Reveal Animation */
+
+    const observer =
+    new IntersectionObserver(
+
+    (entries)=>{
+
+
+    entries.forEach((entry)=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add(
+                'show'
+            );
+
+        }
+
+    });
+
+
+    },
+
+    {
+    threshold:0.15
+    }
+
+    );
+
+    document
+    .querySelectorAll('.fade-up')
+    .forEach((el)=>{
+
+
+    observer.observe(el);
+
+
+    });
+
+
+    </script>
 
 {% endblock %}

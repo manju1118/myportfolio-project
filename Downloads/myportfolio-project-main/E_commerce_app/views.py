@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product, Category, Cart, Order, Wishlist
+from .models import Product, Category, Cart, Order, Wishlist, Review
 from django.db.models import Q
 from django.contrib import messages
-
+from django.db.models import Avg
+import razorpay
+from django.conf import settings
 
 
 
@@ -82,9 +84,18 @@ def product_detail(request, slug):
     product = Product.objects.get(slug=slug)
     related_products = Product.objects.filter(
         category=product.category).exclude(id=product.id)[:4]
+    reviews = product.reviews.all().order_by(
+        '-created_at'
+    )
+
+    average_rating = product.reviews.aggregate(
+        Avg('rating')
+    )['rating__avg']
     context = {
         'product': product,
-        'related_products': related_products
+        'related_products': related_products,
+        'reviews':reviews,
+        'average_rating':average_rating
     }
     return render(request, 'ecom_app/product_detail.html', context)
 
@@ -194,30 +205,30 @@ def checkout(request):
                 'address'
             ),
 
-            total_price=total_price
+            total_price=total_price,
+
+            status='Pending'
 
         )
 
         cart_items.delete()
+
+        messages.success(
+            request,
+            "Order placed successfully 🎉"
+        )
 
         return redirect(
             'orders'
         )
 
     return render(
-
         request,
-
         'ecom_app/checkout.html',
-
         {
-
             'cart_items': cart_items,
-
             'total_price': total_price
-
         }
-
     )
 
 
@@ -318,4 +329,76 @@ def wishlist_page(request):
 
         }
 
+    )
+
+@login_required
+def add_review(request, slug):
+
+    product = Product.objects.get(
+        slug=slug
+    )
+
+    if request.method == 'POST':
+
+        rating = request.POST.get(
+            'rating'
+        )
+
+        comment = request.POST.get(
+            'comment'
+        )
+
+        Review.objects.create(
+
+            product=product,
+
+            user=request.user,
+
+            rating=rating,
+
+            comment=comment
+
+        )
+
+    return redirect(
+        'product_detail',
+        slug=slug
+    )
+
+@login_required
+def payment_success(request):
+
+    cart_items = Cart.objects.filter(
+        user=request.user
+    )
+
+    total_price = sum(
+        item.product.price * item.quantity
+        for item in cart_items
+    )
+
+    Order.objects.create(
+
+        user=request.user,
+
+        full_name=request.POST.get(
+            'full_name'
+        ),
+
+        phone=request.POST.get(
+            'phone'
+        ),
+
+        address=request.POST.get(
+            'address'
+        ),
+
+        total_price=total_price
+
+    )
+
+    cart_items.delete()
+
+    return redirect(
+        'orders'
     )
