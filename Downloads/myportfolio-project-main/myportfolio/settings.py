@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'portfolio_app',
     'blogproject',
     'Todo_app_project',
+    'E_commerce_app',
 
 ]
 

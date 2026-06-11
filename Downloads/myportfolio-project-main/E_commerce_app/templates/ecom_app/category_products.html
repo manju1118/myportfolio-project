@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.category-section{
+    background:#0B1020;
+    min-height:100vh;
+}
+
+.page-title{
+    color:white;
+    font-size:55px;
+    font-weight:700;
+}
+
+.page-subtitle{
+    color:#9CA3AF;
+}
+
+.product-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.4s;
+    height:100%;
+}
+
+.product-card:hover{
+    transform:translateY(-10px);
+    border-color:#00D1FF;
+}
+
+.product-image{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.product-title{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+}
+
+.product-price{
+    color:#00D1FF;
+    font-size:24px;
+    font-weight:700;
+}
+
+.view-btn{
+    background:linear-gradient(
+        90deg,
+        #00D1FF,
+        #7A5CFF
+    );
+    border:none;
+    color:white;
+}
+
+.back-btn{
+    border:1px solid #00D1FF;
+    color:#00D1FF;
+}
+
+.back-btn:hover{
+    background:#00D1FF;
+    color:white;
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:34px;
+        text-align:center;
+    }
+
+    .page-subtitle{
+        text-align:center;
+    }
+
+    .product-image{
+        height:200px;
+    }
+
+}
+
+</style>
+
+<section class="category-section py-5">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+```
+<h1 class="page-title">
+
+    {{ category.name }}
+
+</h1>
+
+<p class="page-subtitle">
+
+    Browse all {{ category.name }} products
+
+</p>
+```
+
+</div>
+
+<div class="mb-4">
+
+```
+<a
+href="{% url 'homepage' %}"
+class="btn back-btn">
+
+    ← Back To Home
+
+</a>
+```
+
+</div>
+
+<div class="row g-4">
+
+{% for product in products %}
+
+<div class="col-md-6 col-lg-4">
+
+```
+<div class="product-card">
+
+    {% if product.image %}
+
+    <img
+    src="{{ product.image.url }}"
+    class="product-image">
+
+    {% endif %}
+
+    <div class="p-4">
+
+        <h3 class="product-title">
+
+            {{ product.title }}
+
+        </h3>
+
+        <p class="text-secondary">
+
+            {{ product.description|truncatewords:15 }}
+
+        </p>
+
+        <h4 class="product-price">
+
+            ₹{{ product.price }}
+
+        </h4>
+
+        <a
+        href="{% url 'product_detail' product.slug %}"
+        class="btn view-btn w-100">
+
+            View Product
+
+        </a>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+```
+<div class="alert alert-dark text-center">
+
+    No Products Found In This Category
+
+</div>
+```
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
