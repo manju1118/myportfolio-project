@@ -132,7 +132,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = 'login'
-
-RAZORPAY_KEY_ID = "rzp_test_xxxxxxxxx"
-
-RAZORPAY_KEY_SECRET = "xxxxxxxxxxxxxxx"
